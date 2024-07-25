@@ -1,0 +1,15 @@
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+.next
+.history
+
+# Artifacts
+.eslintrc.json
+.prettierrc
+.components.json
+.next.config.mjs
+.package.json
+pnpm-lock.yaml
+tsconfig.json

@@ -1,6 +1,9 @@
 import { Check, Star } from 'lucide-react';
+import { sanitize } from 'isomorphic-dompurify';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import Phone from '@/components/Phone';
+import { Icons } from '@/components/Icons';
+import { testimonial } from './mocks/testimonials';
 
 export default function Home() {
   return (
@@ -89,6 +92,53 @@ export default function Home() {
               <img src="/line.png" className="absolute -bottom-6 -left-6 w-20 select-none" />
               <Phone className="w-64" imgSrc="" />
             </div>
+          </div>
+        </MaxWidthWrapper>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-slate-100 py-24">
+        <MaxWidthWrapper className="flex flex-col items-center gap-16 sm:gap-32">
+          <div className="flex flex-col items-center gap-4 sm:gap-6 lg:flex-row">
+            <h2 className="order-1 mt-2 text-balance text-center text-5xl font-bold !leading-tight tracking-tight text-gray-900 md:text-6xl">
+              See our{' '}
+              <span className="relative px-2">
+                customers{' '}
+                <Icons.underline className="pointer-events-none absolute inset-x-0 -bottom-6 hidden text-blue-700 sm:block" />
+              </span>{' '}
+              feedback
+            </h2>
+            <img src="" className='w-24 order-0 lg:order-2'/>
+          </div>
+
+          <div className='mx-auto grid max-w-2xl grid-cols-1 px-4 lg:mx-0 lg:max-w-none lg:grid-cols-2 gap-y-16'>
+            {
+              testimonial.map((t) => (
+                <div className="flex flex-auto flex-col gap-4 lg:pr-8 xl:pr-20">
+                  <div className="flex gap-0 5 mb-2">
+                    {
+                      Array.from({ length: t.stars}).map(() => (
+                        <Star className='h-5 w-5 text-blue-700 fill-blue-700' />
+                      ))
+                    }
+              </div>
+
+              <div className="text-lg leading-8">
+                    <p dangerouslySetInnerHTML={{__html: sanitize(t.description)}} />
+              </div>
+              <div className="flex gap-4 mt-2">
+                <img src={t.customer_image} alt="user" className="rounded-full h-12 w-12 object-cover" />
+                <div className="flex flex-col">
+                      <p className="font-semibold">{t.customer_name}</p>
+                  <div className="flex gap-1 5 items-center text-zinc-600">
+                    <Check className='h-4 w-4 stroke-[3px] text-blue-700' />
+                    <p className="text-sm">Verified Purchase</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+              ))
+            }
           </div>
         </MaxWidthWrapper>
       </section>
